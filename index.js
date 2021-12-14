@@ -2,10 +2,10 @@ const argv = require("yargs").argv;
 const colors = require("colors");
 const {
   listContacts,
-  getContactById,
+  getContact,
   removeContact,
   addContact,
-} = require("./contacts");
+} = require("./controllers/contacts");
 
 const invokeAction = async ({ action, id, name, email, phone }) => {
   switch (action) {
@@ -15,7 +15,7 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
       break;
 
     case "get":
-      const contact = await getContactById(id);
+      const contact = await getContact(id);
       contact
         ? console.log(
             colors.cyan(
@@ -52,4 +52,6 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
   }
 };
 
-invokeAction(argv);
+(async () => {
+  await invokeAction(argv);
+})();
